@@ -178,7 +178,7 @@ def train_model(args):
 def build_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", default="data")
-    parser.add_argument("--model", default="gnn", choices=["simple_mlp", "gnn", "transolver"])
+    parser.add_argument("--model", default="gnn", choices=["simple_mlp", "gnn", "transolver", "flare"])
     parser.add_argument("--input-steps", type=int, default=1)
     parser.add_argument("--output-steps", type=int, default=1)
     parser.add_argument("--hidden-dim", type=int, default=128)

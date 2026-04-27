@@ -1,3 +1,4 @@
+from .flare import SimpleFlare
 from .gnn import SimpleMeshGNN
 from .simple_mlp import SimplePerNodeMLP
 from .transolver import SimpleTransolver
@@ -26,7 +27,16 @@ def build_model(name, input_dim, output_steps, hidden_dim, num_layers, num_heads
             num_heads=num_heads,
             num_slices=num_slices,
         )
+    if name == "flare":
+        return SimpleFlare(
+            input_dim=input_dim,
+            output_steps=output_steps,
+            hidden_dim=hidden_dim,
+            num_layers=num_layers,
+            num_heads=num_heads,
+            num_slices=num_slices,
+        )
     raise ValueError(f"Unknown model: {name}")
 
 
-__all__ = ["SimplePerNodeMLP", "SimpleMeshGNN", "SimpleTransolver", "build_model"]
+__all__ = ["SimplePerNodeMLP", "SimpleMeshGNN", "SimpleTransolver", "SimpleFlare", "build_model"]
