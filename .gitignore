@@ -1,0 +1,18 @@
+# Local notes
+problem.md
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+flowpde/
+
+# Data and generated artifacts
+data/
+out/
+checkpoints/
+
+# Common local outputs
+*.log
