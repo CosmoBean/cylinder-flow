@@ -1,0 +1,28 @@
+# Python 3.10+ is recommended for this stack.
+# For uv, the CUDA 13.0 PyTorch backend is configured in uv.toml.
+# For pip, install with:
+#   pip install --extra-index-url https://download.pytorch.org/whl/cu130 -r requirements.txt
+
+# PyTorch (CUDA 13.0)
+torch==2.11.0+cu130
+torchvision==0.26.0+cu130
+torchaudio==2.11.0+cu130
+
+# Hugging Face
+transformers>=4.51,<5.0
+datasets>=3.5,<4.0
+huggingface-hub>=0.31,<1.0
+accelerate>=1.6,<2.0
+tokenizers>=0.21,<0.22
+safetensors>=0.5,<1.0
+
+# Core scientific / training utilities
+numpy>=2.0,<3.0
+scipy>=1.14,<2.0
+pandas>=2.2,<3.0
+matplotlib>=3.10,<4.0
+h5py>=3.13,<4.0
+scikit-learn>=1.6,<2.0
+tqdm>=4.67,<5.0
+PyYAML>=6.0,<7.0
+einops>=0.8,<1.0
