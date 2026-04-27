@@ -90,6 +90,22 @@ python train.py \
   --save-dir out/proper_transolver_baseline
 ```
 
+FLARE baseline:
+
+```bash
+source flowpde/bin/activate
+python train.py \
+  --model flare \
+  --epochs 10 \
+  --hidden-dim 128 \
+  --num-layers 4 \
+  --num-heads 4 \
+  --num-slices 32 \
+  --device cuda \
+  --window-stride 10 \
+  --save-dir out/proper_flare_baseline
+```
+
 ## Repo Layout
 
 - `datasets/`: dataset loading and preprocessing
