@@ -31,6 +31,15 @@ pip install --upgrade pip
 pip install --extra-index-url https://download.pytorch.org/whl/cu130 -r requirements.txt
 ```
 
+For macOS, use the CPU-only requirements file instead:
+
+```bash
+python3 -m venv flowpde
+source flowpde/bin/activate
+pip install --upgrade pip
+pip install -r requirements-mac.txt
+```
+
 ## Download The Dataset
 
 The training code uses the downloaded Hugging Face dataset referenced in `problem.md`.
