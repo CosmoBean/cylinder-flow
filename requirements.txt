@@ -1,5 +1,5 @@
 # Python 3.10+ is recommended for this stack.
-# For uv, the CUDA 13.0 PyTorch backend is configured in uv.toml.
+# For uv, the CUDA 13.0 PyTorch index is configured in pyproject.toml.
 # For pip, install with:
 #   pip install --extra-index-url https://download.pytorch.org/whl/cu130 -r requirements.txt
 
