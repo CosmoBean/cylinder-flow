@@ -60,6 +60,12 @@ The loader will automatically extract the required files from the zip into `data
 
 ## Train
 
+To reproduce runs without copying commands manually:
+
+```bash
+bash scripts/run.sh
+```
+
 GNN baseline:
 
 ```bash
