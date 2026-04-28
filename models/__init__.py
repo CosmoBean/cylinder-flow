@@ -3,7 +3,6 @@ from .flare import SimpleFlare
 from .gnot import SimpleGNOT
 from .gnn import SimpleMeshGNN
 from .lno import SimpleLNO
-from .simple_mlp import SimplePerNodeMLP
 from .transolver import SimpleTransolver
 
 
@@ -18,12 +17,6 @@ def build_model(
     fno_modes,
     fno_grid_size,
 ):
-    if name == "simple_mlp":
-        return SimplePerNodeMLP(
-            input_dim=input_dim,
-            output_steps=output_steps,
-            hidden_dim=hidden_dim,
-        )
     if name == "gnn":
         return SimpleMeshGNN(
             input_dim=input_dim,
@@ -79,7 +72,6 @@ def build_model(
 
 
 __all__ = [
-    "SimplePerNodeMLP",
     "SimpleMeshGNN",
     "SimpleTransolver",
     "SimpleFlare",

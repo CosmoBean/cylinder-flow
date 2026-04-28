@@ -155,6 +155,6 @@ python train.py \
 
 - `datasets/`: dataset loading and preprocessing
 - `metrics/`: RMSE, NRMSE, and MSE helpers
-- `models/`: simple MLP, GNN, and Transolver baselines
+- `models/`: GNN, Transolver, FLARE, GNOT, LNO, and FNO baselines
 - `train.py`: training loop
 - `main.py`: CLI entrypoint

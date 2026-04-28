@@ -7,19 +7,6 @@ set -e
 cd "$(dirname "$0")/.."
 
 python train.py \
-  --model simple_mlp \
-  --epochs 10 \
-  --hidden-dim 128 \
-  --num-layers 4 \
-  --learning-rate 1e-3 \
-  --min-learning-rate 1e-4 \
-  --weight-decay 1e-4 \
-  --grad-clip 1.0 \
-  --device cuda \
-  --window-stride 10 \
-  --save-dir out/simple_mlp_baseline
-
-python train.py \
   --model gnn \
   --epochs 10 \
   --hidden-dim 128 \

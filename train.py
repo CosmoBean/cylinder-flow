@@ -199,7 +199,7 @@ def build_parser():
     parser.add_argument(
         "--model",
         default="gnn",
-        choices=["simple_mlp", "gnn", "transolver", "flare", "gnot", "lno", "fno"],
+        choices=["gnn", "transolver", "flare", "gnot", "lno", "fno"],
     )
     parser.add_argument("--input-steps", type=int, default=1)
     parser.add_argument("--output-steps", type=int, default=1)
