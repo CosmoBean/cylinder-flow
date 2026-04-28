@@ -43,6 +43,8 @@ def run_epoch(model, dataloader, optimizer, device, training):
 
             if training:
                 loss.backward()
+                if optimizer.grad_clip is not None:
+                    torch.nn.utils.clip_grad_norm_(model.parameters(), optimizer.grad_clip)
                 optimizer.step()
 
         prediction_raw = dataloader.dataset.denormalize_states(prediction.detach())
@@ -100,8 +102,20 @@ def train_model(args):
         num_layers=args.num_layers,
         num_heads=args.num_heads,
         num_slices=args.num_slices,
+        fno_modes=args.fno_modes,
+        fno_grid_size=args.fno_grid_size,
     ).to(device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
+    optimizer = torch.optim.AdamW(
+        model.parameters(),
+        lr=args.learning_rate,
+        weight_decay=args.weight_decay,
+    )
+    optimizer.grad_clip = args.grad_clip
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer,
+        T_max=args.epochs,
+        eta_min=args.min_learning_rate,
+    )
 
     save_dir = ensure_directory(args.save_dir)
     checkpoint_path = Path(save_dir) / f"{args.model}_best.pt"
@@ -164,11 +178,15 @@ def train_model(args):
                     "num_layers": args.num_layers,
                     "num_heads": args.num_heads,
                     "num_slices": args.num_slices,
+                    "fno_modes": args.fno_modes,
+                    "fno_grid_size": args.fno_grid_size,
                 },
                 checkpoint_path,
             )
             save_results(results_path, best_results)
             print(f"saved={checkpoint_path}")
+
+        scheduler.step()
 
     if best_results is not None:
         print("best_valid_metrics", json.dumps(best_results["valid_metrics"]))
@@ -178,14 +196,23 @@ def train_model(args):
 def build_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", default="data")
-    parser.add_argument("--model", default="gnn", choices=["simple_mlp", "gnn", "transolver", "flare"])
+    parser.add_argument(
+        "--model",
+        default="gnn",
+        choices=["simple_mlp", "gnn", "transolver", "flare", "gnot", "lno", "fno"],
+    )
     parser.add_argument("--input-steps", type=int, default=1)
     parser.add_argument("--output-steps", type=int, default=1)
     parser.add_argument("--hidden-dim", type=int, default=128)
     parser.add_argument("--num-layers", type=int, default=3)
     parser.add_argument("--num-heads", type=int, default=4)
     parser.add_argument("--num-slices", type=int, default=32)
+    parser.add_argument("--fno-modes", type=int, default=12)
+    parser.add_argument("--fno-grid-size", type=int, default=64)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
+    parser.add_argument("--min-learning-rate", type=float, default=1e-4)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument("--grad-clip", type=float, default=1.0)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--save-dir", default="checkpoints")

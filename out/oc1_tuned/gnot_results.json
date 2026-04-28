@@ -1,0 +1,42 @@
+{
+  "epoch": 1,
+  "model": "gnot",
+  "device": "cuda",
+  "train_samples": 10000,
+  "valid_samples": 1000,
+  "train_metrics": {
+    "loss": 0.29564167164559696,
+    "mse": 0.00506953596165024,
+    "rmse": 0.04590438148939283,
+    "nrmse": 0.09257441440396942
+  },
+  "valid_metrics": {
+    "loss": 0.2980461140404805,
+    "mse": 0.004476680633995784,
+    "rmse": 0.04471819119527936,
+    "nrmse": 0.0796308431327343
+  },
+  "config": {
+    "data_dir": "data",
+    "model": "gnot",
+    "input_steps": 1,
+    "output_steps": 1,
+    "hidden_dim": 128,
+    "num_layers": 4,
+    "num_heads": 4,
+    "num_slices": 32,
+    "fno_modes": 12,
+    "fno_grid_size": 64,
+    "learning_rate": 0.0003,
+    "min_learning_rate": 1e-05,
+    "weight_decay": 0.0001,
+    "grad_clip": 1.0,
+    "epochs": 10,
+    "seed": 0,
+    "save_dir": "/tmp/sbandred-cyl/out/final_gnot_tuned",
+    "device": "cuda",
+    "max_train_samples": null,
+    "max_valid_samples": null,
+    "window_stride": 10
+  }
+}
