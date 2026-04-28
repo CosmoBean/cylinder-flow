@@ -1,3 +1,4 @@
+# FLARE reference: https://arxiv.org/abs/2508.12594
 import torch
 import torch.nn.functional as F
 from einops import rearrange

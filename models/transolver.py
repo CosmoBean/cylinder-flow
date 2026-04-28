@@ -1,3 +1,4 @@
+# Transolver reference: https://arxiv.org/abs/2402.02366
 import torch
 from torch import nn
 

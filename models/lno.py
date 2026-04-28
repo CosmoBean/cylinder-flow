@@ -1,3 +1,4 @@
+# Latent Neural Operator reference: https://arxiv.org/abs/2406.03923
 import torch
 from torch import nn
 

@@ -1,3 +1,4 @@
+# Fourier Neural Operator reference: https://arxiv.org/abs/2010.08895
 import torch
 import torch.nn.functional as F
 from torch import nn

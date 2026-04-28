@@ -1,3 +1,4 @@
+# GNOT reference: https://arxiv.org/abs/2302.14376
 import torch
 from torch import nn
 
