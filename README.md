@@ -151,4 +151,4 @@ python train.py \
 - `metrics/`: RMSE, NRMSE, and MSE helpers
 - `models/`: simple MLP, GNN, and Transolver baselines
 - `train.py`: training loop
-- `main.py`: thin CLI entrypoint
+- `main.py`: CLI entrypoint
