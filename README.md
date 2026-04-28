@@ -106,6 +106,45 @@ python train.py \
   --save-dir out/proper_flare_baseline
 ```
 
+GNOT tuned run:
+
+```bash
+source flowpde/bin/activate
+python train.py \
+  --model gnot \
+  --epochs 10 \
+  --hidden-dim 128 \
+  --num-layers 4 \
+  --num-heads 4 \
+  --learning-rate 3e-4 \
+  --min-learning-rate 1e-5 \
+  --weight-decay 1e-4 \
+  --grad-clip 1.0 \
+  --device cuda \
+  --window-stride 10 \
+  --save-dir out/final_gnot_tuned
+```
+
+LNO tuned run:
+
+```bash
+source flowpde/bin/activate
+python train.py \
+  --model lno \
+  --epochs 6 \
+  --hidden-dim 192 \
+  --num-layers 4 \
+  --num-heads 6 \
+  --num-slices 64 \
+  --learning-rate 3e-4 \
+  --min-learning-rate 1e-5 \
+  --weight-decay 5e-5 \
+  --grad-clip 0.5 \
+  --device cuda \
+  --window-stride 10 \
+  --save-dir out/final_lno_tuned
+```
+
 ## Repo Layout
 
 - `datasets/`: dataset loading and preprocessing
