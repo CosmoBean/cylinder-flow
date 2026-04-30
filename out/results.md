@@ -36,11 +36,4 @@ Sorted by validation RMSE:
 - fno
 - gnot
 - lno
-
-Source files:
-- [out/oc3_fair_gnn/gnn_results.json](/project/community/sbandred/cylinder-flow/out/oc3_fair_gnn/gnn_results.json)
-- [out/oc3_fair_transolver/transolver_results.json](/project/community/sbandred/cylinder-flow/out/oc3_fair_transolver/transolver_results.json)
-- [out/oc4_fair/flare_l3_s32_lr5e4/flare_results.json](/project/community/sbandred/cylinder-flow/out/oc4_fair/flare_l3_s32_lr5e4/flare_results.json)
-- [out/oc4_fair/fno/fno_results.json](/project/community/sbandred/cylinder-flow/out/oc4_fair/fno/fno_results.json)
-- [out/oc4_fair/gnot/gnot_results.json](/project/community/sbandred/cylinder-flow/out/oc4_fair/gnot/gnot_results.json)
-- [out/oc4_fair/lno/lno_results.json](/project/community/sbandred/cylinder-flow/out/oc4_fair/lno/lno_results.json)
+/sbandred/cylinder-flow/out/oc4_fair/lno/lno_results.json)
