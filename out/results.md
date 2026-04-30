@@ -36,4 +36,3 @@ Sorted by validation RMSE:
 - fno
 - gnot
 - lno
-/sbandred/cylinder-flow/out/oc4_fair/lno/lno_results.json)
