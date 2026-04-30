@@ -66,95 +66,156 @@ To reproduce runs without copying commands manually:
 bash scripts/run.sh
 ```
 
-GNN baseline:
+For evaluation, use `NRMSE` as the primary metric. `RMSE` can still be logged as a secondary reference, but model comparisons in this repo should be made by validation `NRMSE`.
+
+Latest fair-size runs use parameter matching with `--target-params 134000`. The resolved hidden sizes from the latest saved runs were:
+
+- `gnn`: `72`
+- `transolver`: `64`
+- `flare`: `48`
+- `gnot`: `24`
+- `lno`: `56`
+- `fno`: `16`
+
+GNN fair run:
 
 ```bash
 source flowpde/bin/activate
 python train.py \
   --model gnn \
   --epochs 10 \
-  --hidden-dim 128 \
+  --target-params 134000 \
+  --hidden-dim-min 16 \
+  --hidden-dim-max 256 \
+  --hidden-dim-step 8 \
   --num-layers 4 \
+  --learning-rate 1e-3 \
+  --min-learning-rate 1e-4 \
+  --weight-decay 1e-4 \
+  --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/proper_gnn_baseline
+  --save-dir out/fair_gnn
 ```
 
-Transolver baseline:
+Transolver fair run:
 
 ```bash
 source flowpde/bin/activate
 python train.py \
   --model transolver \
   --epochs 10 \
-  --hidden-dim 128 \
+  --target-params 134000 \
+  --hidden-dim-min 16 \
+  --hidden-dim-max 256 \
+  --hidden-dim-step 8 \
   --num-layers 4 \
   --num-heads 4 \
   --num-slices 32 \
+  --learning-rate 1e-3 \
+  --min-learning-rate 1e-4 \
+  --weight-decay 1e-4 \
+  --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/proper_transolver_baseline
+  --save-dir out/fair_transolver
 ```
 
-FLARE baseline:
+FLARE fair run:
 
 ```bash
 source flowpde/bin/activate
 python train.py \
   --model flare \
   --epochs 10 \
-  --hidden-dim 128 \
-  --num-layers 4 \
+  --target-params 134000 \
+  --hidden-dim-min 16 \
+  --hidden-dim-max 256 \
+  --hidden-dim-step 8 \
+  --num-layers 3 \
   --num-heads 4 \
   --num-slices 32 \
+  --learning-rate 5e-4 \
+  --min-learning-rate 1e-5 \
+  --weight-decay 1e-5 \
+  --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/proper_flare_baseline
+  --save-dir out/fair_flare
 ```
 
-GNOT tuned run:
+GNOT fair run:
 
 ```bash
 source flowpde/bin/activate
 python train.py \
   --model gnot \
   --epochs 10 \
-  --hidden-dim 128 \
+  --target-params 134000 \
+  --hidden-dim-min 16 \
+  --hidden-dim-max 256 \
+  --hidden-dim-step 8 \
   --num-layers 4 \
   --num-heads 4 \
-  --learning-rate 3e-4 \
-  --min-learning-rate 1e-5 \
+  --learning-rate 1e-3 \
+  --min-learning-rate 1e-4 \
   --weight-decay 1e-4 \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/final_gnot_tuned
+  --save-dir out/fair_gnot
 ```
 
-LNO tuned run:
+LNO fair run:
 
 ```bash
 source flowpde/bin/activate
 python train.py \
   --model lno \
-  --epochs 6 \
-  --hidden-dim 192 \
+  --epochs 10 \
+  --target-params 134000 \
+  --hidden-dim-min 16 \
+  --hidden-dim-max 256 \
+  --hidden-dim-step 8 \
   --num-layers 4 \
-  --num-heads 6 \
-  --num-slices 64 \
-  --learning-rate 3e-4 \
-  --min-learning-rate 1e-5 \
-  --weight-decay 5e-5 \
-  --grad-clip 0.5 \
+  --num-heads 4 \
+  --num-slices 32 \
+  --learning-rate 1e-3 \
+  --min-learning-rate 1e-4 \
+  --weight-decay 1e-4 \
+  --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/final_lno_tuned
+  --save-dir out/fair_lno
+```
+
+FNO fair run:
+
+```bash
+source flowpde/bin/activate
+python train.py \
+  --model fno \
+  --epochs 10 \
+  --target-params 134000 \
+  --hidden-dim-min 16 \
+  --hidden-dim-max 256 \
+  --hidden-dim-step 8 \
+  --num-layers 4 \
+  --fno-modes 8 \
+  --fno-grid-size 32 \
+  --learning-rate 1e-3 \
+  --min-learning-rate 1e-4 \
+  --weight-decay 1e-4 \
+  --grad-clip 1.0 \
+  --device cuda \
+  --window-stride 10 \
+  --save-dir out/fair_fno
 ```
 
 ## Repo Layout
 
 - `datasets/`: dataset loading and preprocessing
-- `metrics/`: RMSE, NRMSE, and MSE helpers
+- `metrics.py`: RMSE, NRMSE, and MSE helpers
 - `models/`: GNN, Transolver, FLARE, GNOT, LNO, and FNO baselines
 - `train.py`: training loop
 - `main.py`: CLI entrypoint

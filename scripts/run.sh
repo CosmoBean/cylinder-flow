@@ -47,12 +47,12 @@ flowpde/bin/python train.py \
   --hidden-dim-min 16 \
   --hidden-dim-max 256 \
   --hidden-dim-step 8 \
-  --num-layers 4 \
+  --num-layers 3 \
   --num-heads 4 \
   --num-slices 32 \
-  --learning-rate 1e-3 \
-  --min-learning-rate 1e-4 \
-  --weight-decay 1e-4 \
+  --learning-rate 5e-4 \
+  --min-learning-rate 1e-5 \
+  --weight-decay 1e-5 \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
