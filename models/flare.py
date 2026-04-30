@@ -1,4 +1,4 @@
-# FLARE reference: /project/community/sbandred/FLARE-dev.py/pdebench/models/flare.py
+# FLARE reference: https://arxiv.org/abs/2508.12594
 import torch
 from einops import rearrange
 from torch import nn
