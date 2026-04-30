@@ -228,7 +228,10 @@ class CylinderFlowDataset(Dataset):
 
     def close(self):
         if self.file_handle is not None:
-            self.file_handle.close()
+            try:
+                self.file_handle.close()
+            except (TypeError, ValueError, OSError):
+                pass
             self.file_handle = None
 
     def __del__(self):

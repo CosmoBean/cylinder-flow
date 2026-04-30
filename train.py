@@ -70,6 +70,50 @@ def save_results(path, results):
         json.dump(results, file_handle, indent=2)
 
 
+def count_parameters(model):
+    return sum(parameter.numel() for parameter in model.parameters())
+
+
+def resolve_hidden_dim(args, input_dim):
+    if args.target_params is None:
+        return args.hidden_dim
+
+    candidate_hidden_dims = range(
+        args.hidden_dim_min,
+        args.hidden_dim_max + 1,
+        args.hidden_dim_step,
+    )
+    best_hidden_dim = None
+    best_distance = None
+
+    for hidden_dim in candidate_hidden_dims:
+        if args.model in {"transolver", "flare", "gnot", "lno"} and hidden_dim % args.num_heads != 0:
+            continue
+
+        model = build_model(
+            name=args.model,
+            input_dim=input_dim,
+            output_steps=args.output_steps,
+            hidden_dim=hidden_dim,
+            num_layers=args.num_layers,
+            num_heads=args.num_heads,
+            num_slices=args.num_slices,
+            fno_modes=args.fno_modes,
+            fno_grid_size=args.fno_grid_size,
+        )
+        num_parameters = count_parameters(model)
+        distance = abs(num_parameters - args.target_params)
+
+        if best_distance is None or distance < best_distance:
+            best_hidden_dim = hidden_dim
+            best_distance = distance
+
+    if best_hidden_dim is None:
+        raise ValueError("No valid hidden_dim candidates found for the requested parameter matching setup.")
+
+    return best_hidden_dim
+
+
 def train_model(args):
     set_seed(args.seed)
     device_name = args.device if args.device else ("cuda" if torch.cuda.is_available() else "cpu")
@@ -94,17 +138,19 @@ def train_model(args):
         window_stride=args.window_stride,
     )
 
+    resolved_hidden_dim = resolve_hidden_dim(args, train_loader.dataset.node_feature_dim)
     model = build_model(
         name=args.model,
         input_dim=train_loader.dataset.node_feature_dim,
         output_steps=args.output_steps,
-        hidden_dim=args.hidden_dim,
+        hidden_dim=resolved_hidden_dim,
         num_layers=args.num_layers,
         num_heads=args.num_heads,
         num_slices=args.num_slices,
         fno_modes=args.fno_modes,
         fno_grid_size=args.fno_grid_size,
     ).to(device)
+    num_parameters = count_parameters(model)
     optimizer = torch.optim.AdamW(
         model.parameters(),
         lr=args.learning_rate,
@@ -126,6 +172,8 @@ def train_model(args):
     print(
         f"device={device} "
         f"model={args.model} "
+        f"hidden_dim={resolved_hidden_dim} "
+        f"num_parameters={num_parameters} "
         f"train_samples={len(train_loader.dataset)} "
         f"valid_samples={len(valid_loader.dataset)}"
     )
@@ -162,11 +210,13 @@ def train_model(args):
                 "epoch": epoch,
                 "model": args.model,
                 "device": str(device),
+                "hidden_dim": resolved_hidden_dim,
+                "num_parameters": num_parameters,
                 "train_samples": len(train_loader.dataset),
                 "valid_samples": len(valid_loader.dataset),
                 "train_metrics": train_metrics,
                 "valid_metrics": valid_metrics,
-                "config": vars(args),
+                "config": {**vars(args), "resolved_hidden_dim": resolved_hidden_dim},
             }
             torch.save(
                 {
@@ -174,7 +224,7 @@ def train_model(args):
                     "model_state_dict": model.state_dict(),
                     "node_feature_dim": train_loader.dataset.node_feature_dim,
                     "output_steps": args.output_steps,
-                    "hidden_dim": args.hidden_dim,
+                    "hidden_dim": resolved_hidden_dim,
                     "num_layers": args.num_layers,
                     "num_heads": args.num_heads,
                     "num_slices": args.num_slices,
@@ -204,6 +254,10 @@ def build_parser():
     parser.add_argument("--input-steps", type=int, default=1)
     parser.add_argument("--output-steps", type=int, default=1)
     parser.add_argument("--hidden-dim", type=int, default=128)
+    parser.add_argument("--target-params", type=int, default=None)
+    parser.add_argument("--hidden-dim-min", type=int, default=16)
+    parser.add_argument("--hidden-dim-max", type=int, default=256)
+    parser.add_argument("--hidden-dim-step", type=int, default=8)
     parser.add_argument("--num-layers", type=int, default=3)
     parser.add_argument("--num-heads", type=int, default=4)
     parser.add_argument("--num-slices", type=int, default=32)
