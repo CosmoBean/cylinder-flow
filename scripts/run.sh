@@ -20,7 +20,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/gnn
+  --save-dir out/checkpoints/gnn
 
 flowpde/bin/python train.py \
   --model transolver \
@@ -38,7 +38,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/transolver
+  --save-dir out/checkpoints/transolver
 
 flowpde/bin/python train.py \
   --model flare \
@@ -56,7 +56,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/flare
+  --save-dir out/checkpoints/flare
 
 flowpde/bin/python train.py \
   --model gnot \
@@ -73,7 +73,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/gnot
+  --save-dir out/checkpoints/gnot
 
 flowpde/bin/python train.py \
   --model lno \
@@ -91,7 +91,7 @@ flowpde/bin/python train.py \
   --grad-clip 0.5 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/lno
+  --save-dir out/checkpoints/lno
 
 flowpde/bin/python train.py \
   --model fno \
@@ -109,4 +109,4 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fno
+  --save-dir out/checkpoints/fno

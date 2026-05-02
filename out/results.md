@@ -1,14 +1,14 @@
-# Stable Results
+# Final Results
 
-These values were re-checked against the saved `*_results.json` and `history.json` files for each stable run.
+These values were re-checked against the saved `*_results.json` and `history.json` files for each final reported run.
 
-Stable run sources:
-- `flare`: `out/launch_oc3_flare`
-- `transolver`: `out/launch_oc3_transolver`
-- `gnn`: `out/launch_oc3_gnn`
-- `fno`: `out/launch_oc1_fno`
-- `gnot`: `out/launch_oc3_gnot`
-- `lno`: `out/lno_stability_c`
+Run sources:
+- `flare`: `out/checkpoints/flare`
+- `transolver`: `out/checkpoints/transolver`
+- `gnn`: `out/checkpoints/gnn`
+- `fno`: `out/checkpoints/fno`
+- `gnot`: `out/checkpoints/gnot`
+- `lno`: `out/checkpoints/lno`
 
 Common setup:
 - train/valid samples: `10000 / 1000`
@@ -60,14 +60,14 @@ Sorted by validation NRMSE:
 
 ## Training Curves
 
-Epoch-by-epoch validation curves for the stable runs:
+Epoch-by-epoch validation curves for the final reported runs:
 
-![Stable baseline training curves](plots/stable_training_curves.png)
+![Validation curves](plots/validation_curves.png)
 
 Validation NRMSE:
 
-![Stable validation NRMSE](plots/stable_validation_nrmse.png)
+![Validation NRMSE](plots/validation_nrmse.png)
 
 Validation RMSE:
 
-![Stable validation RMSE](plots/stable_validation_rmse.png)
+![Validation RMSE](plots/validation_rmse.png)

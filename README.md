@@ -99,13 +99,13 @@ flowpde/bin/python scripts/analyze_training_dynamics.py \
 
 To inspect the saved plots already included in the repo:
 
-- `out/plots/stable_validation_curves.png`
-- `out/plots/stable_validation_nrmse.png`
-- `out/plots/stable_validation_rmse.png`
+- `out/plots/validation_curves.png`
+- `out/plots/validation_nrmse.png`
+- `out/plots/validation_rmse.png`
 - `out/plots/training_loss_curves.png`
 - `out/plots/validation_loss_curves.png`
-- `out/plots/stable_peak_gpu_memory_by_epoch.png`
-- `out/plots/stable_epoch_time_by_epoch.png`
+- `out/plots/peak_gpu_memory_by_epoch.png`
+- `out/plots/epoch_time_by_epoch.png`
 
 You do not need to rerun training to reproduce the tables and plots above.
 
@@ -165,7 +165,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc3_gnn
+  --save-dir out/checkpoints/gnn
 ```
 
 Transolver run:
@@ -187,7 +187,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc3_transolver
+  --save-dir out/checkpoints/transolver
 ```
 
 FLARE run:
@@ -209,7 +209,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc3_flare
+  --save-dir out/checkpoints/flare
 ```
 
 GNOT run:
@@ -230,7 +230,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc3_gnot
+  --save-dir out/checkpoints/gnot
 ```
 
 LNO run:
@@ -252,7 +252,7 @@ flowpde/bin/python train.py \
   --grad-clip 0.5 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/lno_stability_c
+  --save-dir out/checkpoints/lno
 ```
 
 FNO run:
@@ -274,7 +274,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc1_fno
+  --save-dir out/checkpoints/fno
 ```
 
 ## Repo Layout
