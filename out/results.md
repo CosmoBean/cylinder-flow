@@ -34,22 +34,6 @@ Sorted by validation NRMSE:
 - gnot
 - lno
 
-## LNO Stability Check
-
-The best saved LNO stability run is `out/lno_stability_c`.
-
-| Run | Best Epoch | Valid NRMSE | Valid RMSE |
-| --- | ---: | ---: | ---: |
-| lno_stability_c | 9 | 0.060094 | 0.038960 |
-| lno_stability_a | 10 | 0.062547 | 0.040287 |
-| lno_stability_d | 9 | 0.065853 | 0.041888 |
-| lno_stability_b | 10 | 0.075284 | 0.046323 |
-| lno_stability_e | 4 | 0.075336 | 0.046559 |
-
-Median LNO stability result:
-- valid NRMSE: `0.065853`
-- valid RMSE: `0.041888`
-
 ## Training Curves
 
 Epoch-by-epoch validation curves for the stable runs:
