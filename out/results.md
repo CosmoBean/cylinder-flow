@@ -17,16 +17,16 @@ Common setup:
 - window stride: `10`
 - device: `cuda`
 
-### 1. Model Details
+### 1. Model and Training Parameters
 
-| Model | Parameters | Hidden Dim | Best Epoch |
-| --- | ---: | ---: | ---: |
-| flare | 133,203 | 48 | 10 |
-| transolver | 136,467 | 64 | 9 |
-| gnn | 132,771 | 72 | 10 |
-| fno | 132,772 | 16 | 10 |
-| gnot | 140,867 | 24 | 10 |
-| lno | 144,739 | 56 | 9 |
+| Model | Parameters | Architecture | Training Setup |
+| --- | ---: | --- | --- |
+| flare | 133,203 | `hd=48, L=3, heads=4, slices=32` | `lr=5e-4, min_lr=1e-5, wd=1e-5, clip=1.0, stride=10` |
+| transolver | 136,467 | `hd=64, L=4, heads=4, slices=32` | `lr=1e-3, min_lr=1e-4, wd=1e-4, clip=1.0, stride=10` |
+| gnn | 132,771 | `hd=72, L=4` | `lr=1e-3, min_lr=1e-4, wd=1e-4, clip=1.0, stride=10` |
+| fno | 132,772 | `hd=16, L=4, modes=8, grid=32` | `lr=1e-3, min_lr=1e-4, wd=1e-4, clip=1.0, stride=10` |
+| gnot | 140,867 | `hd=24, L=4, heads=4, slices=32` | `lr=1e-3, min_lr=1e-4, wd=1e-4, clip=1.0, stride=10` |
+| lno | 144,739 | `hd=56, L=4, heads=4, slices=32` | `lr=5e-4, min_lr=5e-5, wd=1e-5, clip=0.5, stride=10` |
 
 ### 2. Training Behaviour
 
