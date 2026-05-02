@@ -20,7 +20,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc3_gnn
+  --save-dir out/gnn
 
 flowpde/bin/python train.py \
   --model transolver \
@@ -38,7 +38,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc3_transolver
+  --save-dir out/transolver
 
 flowpde/bin/python train.py \
   --model flare \
@@ -56,7 +56,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc3_flare
+  --save-dir out/flare
 
 flowpde/bin/python train.py \
   --model gnot \
@@ -73,7 +73,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc3_gnot
+  --save-dir out/gnot
 
 flowpde/bin/python train.py \
   --model lno \
@@ -91,7 +91,7 @@ flowpde/bin/python train.py \
   --grad-clip 0.5 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/lno_stability_c
+  --save-dir out/lno
 
 flowpde/bin/python train.py \
   --model fno \
@@ -109,4 +109,4 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/launch_oc1_fno
+  --save-dir out/fno
