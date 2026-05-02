@@ -18,26 +18,23 @@ Create the environment with `uv`:
 
 ```bash
 uv venv flowpde
-source flowpde/bin/activate
-uv sync
+uv sync --python flowpde/bin/python
 ```
 
 If you prefer `pip` instead:
 
 ```bash
 python3 -m venv flowpde
-source flowpde/bin/activate
-pip install --upgrade pip
-pip install --extra-index-url https://download.pytorch.org/whl/cu130 -r requirements.txt
+flowpde/bin/python -m pip install --upgrade pip
+flowpde/bin/python -m pip install --extra-index-url https://download.pytorch.org/whl/cu130 -r requirements.txt
 ```
 
 For macOS, use the CPU-only requirements file instead:
 
 ```bash
 python3 -m venv flowpde
-source flowpde/bin/activate
-pip install --upgrade pip
-pip install -r requirements-mac.txt
+flowpde/bin/python -m pip install --upgrade pip
+flowpde/bin/python -m pip install -r requirements-mac.txt
 ```
 
 ## Download The Dataset
@@ -60,10 +57,30 @@ The loader will automatically extract the required files from the zip into `data
 
 ## Train
 
-To reproduce runs without copying commands manually:
+To reproduce the full fair-size sweep in one command:
 
 ```bash
 bash scripts/run.sh
+```
+
+The script now bootstraps the repo end to end:
+
+- reuses `flowpde/bin/python` if it already exists
+- otherwise creates `.venv/` and installs dependencies
+- downloads `data/cylinder_flow_captioned.zip` automatically if needed
+- runs the six fair-size training jobs from the README
+
+Useful overrides:
+
+```bash
+# Run just one model.
+MODELS=gnn bash scripts/run.sh
+
+# Smoke test on a small subset.
+MODELS=gnn EPOCHS=1 MAX_TRAIN_SAMPLES=8 MAX_VALID_SAMPLES=4 bash scripts/run.sh
+
+# Use an existing Python instead of creating .venv.
+PYTHON_BIN=$(which python3) MODELS=gnn bash scripts/run.sh
 ```
 
 For evaluation, use `NRMSE` as the primary metric. `RMSE` can still be logged as a secondary reference, but model comparisons in this repo should be made by validation `NRMSE`.
