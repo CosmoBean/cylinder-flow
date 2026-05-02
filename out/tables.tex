@@ -1,0 +1,50 @@
+\begin{table}[ht]
+\centering
+\caption{Model Details}
+\begin{tabular}{lrrr}
+\hline
+Model & Parameters & Hidden Dim & Best Epoch \\
+\hline
+flare & 133203 & 48 & 10 \\
+transolver & 136467 & 64 & 9 \\
+gnn & 132771 & 72 & 10 \\
+fno & 132772 & 16 & 10 \\
+gnot & 140867 & 24 & 10 \\
+lno & 144739 & 56 & 9 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Training Behaviour}
+\begin{tabular}{lrr}
+\hline
+Model & Train Loss & Valid Loss \\
+\hline
+flare & 0.004285 & 0.004993 \\
+transolver & 0.007152 & 0.008109 \\
+gnn & 0.008825 & 0.009819 \\
+fno & 0.062094 & 0.068865 \\
+gnot & 0.255387 & 0.355921 \\
+lno & 0.266147 & 0.365839 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Results and Performance}
+\begin{tabular}{lrrrr}
+\hline
+Model & Train NRMSE & Valid NRMSE & Train RMSE & Valid RMSE \\
+\hline
+flare & 0.016107 & 0.016653 & 0.008540 & 0.009382 \\
+transolver & 0.021331 & 0.021461 & 0.011401 & 0.012319 \\
+gnn & 0.022241 & 0.022757 & 0.012824 & 0.013806 \\
+fno & 0.030535 & 0.031537 & 0.015444 & 0.017029 \\
+gnot & 0.055458 & 0.059688 & 0.033082 & 0.038479 \\
+lno & 0.055567 & 0.060094 & 0.033543 & 0.038960 \\
+\hline
+\end{tabular}
+\end{table}
