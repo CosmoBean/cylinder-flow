@@ -52,6 +52,14 @@ Median LNO stability result:
 
 ## Training Curves
 
-Combined epoch-by-epoch validation curves for the stable runs:
+Epoch-by-epoch validation curves for the stable runs:
 
 ![Stable baseline training curves](plots/stable_training_curves.png)
+
+Validation NRMSE:
+
+![Stable validation NRMSE](plots/stable_validation_nrmse.png)
+
+Validation RMSE:
+
+![Stable validation RMSE](plots/stable_validation_rmse.png)
