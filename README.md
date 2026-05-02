@@ -55,9 +55,63 @@ curl -L --fail -o data/cylinder_flow_captioned.zip \
 
 The loader will automatically extract the required files from the zip into `data/` when needed.
 
-## Train
+## Reproduce Reported Results Without Retraining
 
-To reproduce the full sweep in one command:
+The reported baseline artifacts are already saved under:
+
+- `out/checkpoints/flare`
+- `out/checkpoints/transolver`
+- `out/checkpoints/gnn`
+- `out/checkpoints/fno`
+- `out/checkpoints/gnot`
+- `out/checkpoints/lno`
+
+Each checkpoint folder contains:
+
+- `*_best.pt`: saved model checkpoint
+- `*_results.json`: best saved train/validation metrics
+- `history.json`: per-epoch training history used for plots
+
+The main reported summary files are:
+
+- `out/results.md`
+- `out/tables.tex`
+
+To inspect the saved metrics directly:
+
+```bash
+cat out/checkpoints/flare/flare_results.json
+cat out/checkpoints/transolver/transolver_results.json
+cat out/checkpoints/gnn/gnn_results.json
+cat out/checkpoints/fno/fno_results.json
+cat out/checkpoints/gnot/gnot_results.json
+cat out/checkpoints/lno/lno_results.json
+```
+
+To regenerate the training-dynamics analysis from the saved histories only:
+
+```bash
+flowpde/bin/python scripts/analyze_training_dynamics.py \
+  --root-dir out/checkpoints \
+  --output-dir out/reproduced_training_dynamics \
+  --models flare transolver gnn fno gnot lno
+```
+
+To inspect the saved plots already included in the repo:
+
+- `out/plots/stable_validation_curves.png`
+- `out/plots/stable_validation_nrmse.png`
+- `out/plots/stable_validation_rmse.png`
+- `out/plots/training_loss_curves.png`
+- `out/plots/validation_loss_curves.png`
+- `out/plots/stable_peak_gpu_memory_by_epoch.png`
+- `out/plots/stable_epoch_time_by_epoch.png`
+
+You do not need to rerun training to reproduce the tables and plots above.
+
+## Train From Scratch
+
+To rerun the full sweep in one command:
 
 ```bash
 bash scripts/run.sh
@@ -111,7 +165,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/gnn
+  --save-dir out/launch_oc3_gnn
 ```
 
 Transolver run:
@@ -133,7 +187,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/transolver
+  --save-dir out/launch_oc3_transolver
 ```
 
 FLARE run:
@@ -155,7 +209,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/flare
+  --save-dir out/launch_oc3_flare
 ```
 
 GNOT run:
@@ -176,7 +230,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/gnot
+  --save-dir out/launch_oc3_gnot
 ```
 
 LNO run:
@@ -198,7 +252,7 @@ flowpde/bin/python train.py \
   --grad-clip 0.5 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/lno
+  --save-dir out/lno_stability_c
 ```
 
 FNO run:
@@ -220,7 +274,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fno
+  --save-dir out/launch_oc1_fno
 ```
 
 ## Repo Layout

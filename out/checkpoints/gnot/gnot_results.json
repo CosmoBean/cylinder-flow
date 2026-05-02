@@ -1,0 +1,50 @@
+{
+  "epoch": 10,
+  "model": "gnot",
+  "device": "cuda",
+  "hidden_dim": 24,
+  "num_parameters": 140867,
+  "train_samples": 10000,
+  "valid_samples": 1000,
+  "train_metrics": {
+    "loss": 0.2553874194118942,
+    "mse": 0.0028567759192222185,
+    "rmse": 0.03308230548316205,
+    "nrmse": 0.055458141445193905
+  },
+  "valid_metrics": {
+    "loss": 0.3559210970239019,
+    "mse": 0.003743148779449655,
+    "rmse": 0.038478949839423876,
+    "nrmse": 0.059688043229747564
+  },
+  "config": {
+    "data_dir": "data",
+    "model": "gnot",
+    "input_steps": 1,
+    "output_steps": 1,
+    "hidden_dim": 128,
+    "target_params": 134000,
+    "hidden_dim_min": 16,
+    "hidden_dim_max": 256,
+    "hidden_dim_step": 8,
+    "num_layers": 4,
+    "num_heads": 4,
+    "num_slices": 32,
+    "fno_modes": 12,
+    "fno_grid_size": 64,
+    "learning_rate": 0.001,
+    "min_learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "grad_clip": 1.0,
+    "epochs": 10,
+    "seed": 0,
+    "save_dir": "out/launch_oc3_gnot",
+    "device": "cuda",
+    "max_train_samples": null,
+    "max_valid_samples": null,
+    "window_stride": 10,
+    "num_history_checkpoints": 10,
+    "resolved_hidden_dim": 24
+  }
+}

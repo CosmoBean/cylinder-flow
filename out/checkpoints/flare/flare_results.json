@@ -1,0 +1,50 @@
+{
+  "epoch": 10,
+  "model": "flare",
+  "device": "cuda",
+  "hidden_dim": 48,
+  "num_parameters": 133203,
+  "train_samples": 10000,
+  "valid_samples": 1000,
+  "train_metrics": {
+    "loss": 0.004285363595217313,
+    "mse": 0.00016954140213414916,
+    "rmse": 0.008540058887726628,
+    "nrmse": 0.01610722475599032
+  },
+  "valid_metrics": {
+    "loss": 0.004993294771833461,
+    "mse": 0.00018077577907143905,
+    "rmse": 0.009381735522008966,
+    "nrmse": 0.01665259259403683
+  },
+  "config": {
+    "data_dir": "data",
+    "model": "flare",
+    "input_steps": 1,
+    "output_steps": 1,
+    "hidden_dim": 128,
+    "target_params": 134000,
+    "hidden_dim_min": 16,
+    "hidden_dim_max": 256,
+    "hidden_dim_step": 8,
+    "num_layers": 3,
+    "num_heads": 4,
+    "num_slices": 32,
+    "fno_modes": 12,
+    "fno_grid_size": 64,
+    "learning_rate": 0.0005,
+    "min_learning_rate": 1e-05,
+    "weight_decay": 1e-05,
+    "grad_clip": 1.0,
+    "epochs": 10,
+    "seed": 0,
+    "save_dir": "out/launch_oc3_flare",
+    "device": "cuda",
+    "max_train_samples": null,
+    "max_valid_samples": null,
+    "window_stride": 10,
+    "num_history_checkpoints": 10,
+    "resolved_hidden_dim": 48
+  }
+}
