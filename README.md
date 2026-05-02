@@ -57,7 +57,7 @@ The loader will automatically extract the required files from the zip into `data
 
 ## Train
 
-To reproduce the full fair-size sweep in one command:
+To reproduce the full sweep in one command:
 
 ```bash
 bash scripts/run.sh
@@ -68,7 +68,7 @@ The script now bootstraps the repo end to end:
 - reuses `flowpde/bin/python` if it already exists
 - otherwise creates `.venv/` and installs dependencies
 - downloads `data/cylinder_flow_captioned.zip` automatically if needed
-- runs the six fair-size training jobs from the README
+- runs the six training jobs from the README
 
 Useful overrides:
 
@@ -85,7 +85,7 @@ PYTHON_BIN=$(which python3) MODELS=gnn bash scripts/run.sh
 
 For evaluation, use `NRMSE` as the primary metric. `RMSE` can still be logged as a secondary reference, but model comparisons in this repo should be made by validation `NRMSE`.
 
-Latest fair-size runs use parameter matching with `--target-params 134000`. The resolved hidden sizes from the latest saved runs were:
+Latest runs use parameter matching with `--target-params 134000`. The resolved hidden sizes from the latest saved runs were:
 
 - `gnn`: `72`
 - `transolver`: `64`
@@ -94,11 +94,10 @@ Latest fair-size runs use parameter matching with `--target-params 134000`. The 
 - `lno`: `56`
 - `fno`: `16`
 
-GNN fair run:
+GNN run:
 
 ```bash
-source flowpde/bin/activate
-python train.py \
+flowpde/bin/python train.py \
   --model gnn \
   --epochs 10 \
   --target-params 134000 \
@@ -112,14 +111,13 @@ python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_gnn
+  --save-dir out/gnn
 ```
 
-Transolver fair run:
+Transolver run:
 
 ```bash
-source flowpde/bin/activate
-python train.py \
+flowpde/bin/python train.py \
   --model transolver \
   --epochs 10 \
   --target-params 134000 \
@@ -135,14 +133,13 @@ python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_transolver
+  --save-dir out/transolver
 ```
 
-FLARE fair run:
+FLARE run:
 
 ```bash
-source flowpde/bin/activate
-python train.py \
+flowpde/bin/python train.py \
   --model flare \
   --epochs 10 \
   --target-params 134000 \
@@ -158,14 +155,13 @@ python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_flare
+  --save-dir out/flare
 ```
 
-GNOT fair run:
+GNOT run:
 
 ```bash
-source flowpde/bin/activate
-python train.py \
+flowpde/bin/python train.py \
   --model gnot \
   --epochs 10 \
   --target-params 134000 \
@@ -180,14 +176,13 @@ python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_gnot
+  --save-dir out/gnot
 ```
 
-LNO fair run:
+LNO run:
 
 ```bash
-source flowpde/bin/activate
-python train.py \
+flowpde/bin/python train.py \
   --model lno \
   --epochs 10 \
   --target-params 134000 \
@@ -197,20 +192,19 @@ python train.py \
   --num-layers 4 \
   --num-heads 4 \
   --num-slices 32 \
-  --learning-rate 1e-3 \
-  --min-learning-rate 1e-4 \
-  --weight-decay 1e-4 \
-  --grad-clip 1.0 \
+  --learning-rate 5e-4 \
+  --min-learning-rate 5e-5 \
+  --weight-decay 1e-5 \
+  --grad-clip 0.5 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_lno
+  --save-dir out/lno
 ```
 
-FNO fair run:
+FNO run:
 
 ```bash
-source flowpde/bin/activate
-python train.py \
+flowpde/bin/python train.py \
   --model fno \
   --epochs 10 \
   --target-params 134000 \
@@ -226,7 +220,7 @@ python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_fno
+  --save-dir out/fno
 ```
 
 ## Repo Layout
