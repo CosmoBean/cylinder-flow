@@ -1,5 +1,6 @@
 import argparse
 import json
+import time
 from pathlib import Path
 
 import torch
@@ -7,7 +8,7 @@ import torch
 from datasets import create_dataloader
 from metrics import compute_metrics, mean_squared_error
 from models import build_model
-from utils import ensure_directory, set_seed
+from utils import HistoryLogger, build_checkpoint_epochs, current_timestamp, ensure_directory, get_peak_gpu_memory_mb, set_seed
 
 
 def move_to_device(value, device):
@@ -166,16 +167,42 @@ def train_model(args):
     save_dir = ensure_directory(args.save_dir)
     checkpoint_path = Path(save_dir) / f"{args.model}_best.pt"
     results_path = Path(save_dir) / f"{args.model}_results.json"
-    best_valid_loss = float("inf")
+    history_path = Path(save_dir) / "history.json"
+    checkpoint_epochs = build_checkpoint_epochs(args.epochs, args.num_history_checkpoints)
+    train_size = len(train_loader.dataset)
+    valid_size = len(valid_loader.dataset)
+    run_start_time = time.perf_counter()
+    best_valid_nrmse = float("inf")
     best_results = None
+
+    if device.type == "cuda" and torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats(device)
+
+    history_logger = HistoryLogger(
+        path=history_path,
+        run_info={
+            "timestamp": current_timestamp(),
+            "model": args.model,
+            "device": str(device),
+            "num_parameters": num_parameters,
+            "resolved_hidden_dim": resolved_hidden_dim,
+            "train_size": train_size,
+            "valid_size": valid_size,
+            "epochs": args.epochs,
+            "num_history_checkpoints": args.num_history_checkpoints,
+            "checkpoint_epochs": checkpoint_epochs,
+            "config": {**vars(args), "resolved_hidden_dim": resolved_hidden_dim},
+        },
+        scheduled_epochs=checkpoint_epochs,
+    )
 
     print(
         f"device={device} "
         f"model={args.model} "
         f"hidden_dim={resolved_hidden_dim} "
         f"num_parameters={num_parameters} "
-        f"train_samples={len(train_loader.dataset)} "
-        f"valid_samples={len(valid_loader.dataset)}"
+        f"train_samples={train_size} "
+        f"valid_samples={valid_size}"
     )
 
     for epoch in range(1, args.epochs + 1):
@@ -204,20 +231,38 @@ def train_model(args):
             f"valid_nrmse={valid_metrics['nrmse']:.6f}"
         )
 
-        if valid_metrics["loss"] < best_valid_loss:
-            best_valid_loss = valid_metrics["loss"]
+        if history_logger.should_log_epoch(epoch):
+            history_logger.add_snapshot(
+                epoch=epoch,
+                model=args.model,
+                train_size=train_size,
+                valid_size=valid_size,
+                train_metrics=train_metrics,
+                valid_metrics=valid_metrics,
+                elapsed_seconds=time.perf_counter() - run_start_time,
+                peak_gpu_memory_mb=get_peak_gpu_memory_mb(device),
+                num_parameters=num_parameters,
+            )
+
+        if valid_metrics["nrmse"] < best_valid_nrmse:
+            best_valid_nrmse = valid_metrics["nrmse"]
             best_results = {
                 "epoch": epoch,
                 "model": args.model,
                 "device": str(device),
                 "hidden_dim": resolved_hidden_dim,
                 "num_parameters": num_parameters,
-                "train_samples": len(train_loader.dataset),
-                "valid_samples": len(valid_loader.dataset),
+                "train_samples": train_size,
+                "valid_samples": valid_size,
                 "train_metrics": train_metrics,
                 "valid_metrics": valid_metrics,
                 "config": {**vars(args), "resolved_hidden_dim": resolved_hidden_dim},
             }
+            history_logger.update_best(
+                epoch=epoch,
+                train_metrics=train_metrics,
+                valid_metrics=valid_metrics,
+            )
             torch.save(
                 {
                     "model_name": args.model,
@@ -274,6 +319,7 @@ def build_parser():
     parser.add_argument("--max-train-samples", type=int, default=None)
     parser.add_argument("--max-valid-samples", type=int, default=None)
     parser.add_argument("--window-stride", type=int, default=1)
+    parser.add_argument("--num-history-checkpoints", type=int, default=10)
     return parser
 
 
