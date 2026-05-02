@@ -1,9 +1,26 @@
 import argparse
 import json
+import re
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
+
+
+MODEL_COLORS = {
+    "flare": "#1b9e77",
+    "transolver": "#d95f02",
+    "gnn": "#7570b3",
+    "fno": "#e7298a",
+    "gnot": "#66a61e",
+    "lno": "#e6ab02",
+}
+
+LOSS_LINE_PATTERN = re.compile(
+    r"epoch=(?P<epoch>\d+)\s+"
+    r"train_loss=(?P<train_loss>[0-9.]+).*"
+    r"valid_loss=(?P<valid_loss>[0-9.]+)"
+)
 
 
 def load_history_file(path):
@@ -15,6 +32,32 @@ def find_history_files(root_dir):
     return sorted(Path(root_dir).glob("**/history.json"))
 
 
+def parse_loss_log(path):
+    epochs = []
+    train_losses = []
+    valid_losses = []
+
+    if not path.exists():
+        return None
+
+    for line in path.read_text(encoding="utf-8").splitlines():
+        match = LOSS_LINE_PATTERN.search(line)
+        if not match:
+            continue
+        epochs.append(int(match.group("epoch")))
+        train_losses.append(float(match.group("train_loss")))
+        valid_losses.append(float(match.group("valid_loss")))
+
+    if not epochs:
+        return None
+
+    return {
+        "epochs": epochs,
+        "train_loss": train_losses,
+        "valid_loss": valid_losses,
+    }
+
+
 def build_run_record(path, payload):
     history = payload.get("history", [])
     run_info = payload.get("run_info", {})
@@ -23,18 +66,24 @@ def build_run_record(path, payload):
 
     best_snapshot = min(history, key=lambda snapshot: snapshot["valid_nrmse"])
     final_snapshot = history[-1]
+    model = run_info["model"]
+    log_data = parse_loss_log(path.parent / "train.log")
+
     return {
         "path": str(path),
-        "model": run_info["model"],
+        "model": model,
+        "color": MODEL_COLORS.get(model, None),
         "train_size": run_info["train_size"],
         "valid_size": run_info["valid_size"],
         "num_parameters": run_info["num_parameters"],
         "resolved_hidden_dim": run_info["resolved_hidden_dim"],
         "best_valid_nrmse": best_snapshot["valid_nrmse"],
         "best_valid_rmse": best_snapshot["valid_rmse"],
+        "best_epoch": best_snapshot["epoch"],
         "final_elapsed_seconds": final_snapshot["elapsed_seconds"],
         "peak_gpu_memory_mb": final_snapshot["peak_gpu_memory_mb"],
         "history": history,
+        "loss_history": log_data,
     }
 
 
@@ -64,36 +113,56 @@ def select_full_size_records(records):
     return list(selected.values())
 
 
-def plot_convergence(records, output_path):
-    plt.figure(figsize=(8, 5))
+def plot_metric_curves(records, metric_key, title, ylabel, output_path):
+    plt.style.use("seaborn-v0_8-whitegrid")
+    fig, ax = plt.subplots(figsize=(7.5, 5), dpi=180)
     for record in sorted(records, key=lambda item: item["model"]):
         epochs = [snapshot["epoch"] for snapshot in record["history"]]
-        values = [snapshot["valid_nrmse"] for snapshot in record["history"]]
-        plt.plot(epochs, values, marker="o", label=record["model"])
-    plt.xlabel("Epoch")
-    plt.ylabel("Validation NRMSE")
-    plt.title("Convergence Behavior")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+        values = [snapshot[metric_key] for snapshot in record["history"]]
+        ax.plot(
+            epochs,
+            values,
+            marker="o",
+            linewidth=2,
+            markersize=4,
+            label=record["model"].upper(),
+            color=record["color"],
+        )
+    ax.set_title(title)
+    ax.set_xlabel("Epoch")
+    ax.set_ylabel(ylabel)
+    ax.set_xticks(range(1, max(max([s["epoch"] for s in r["history"]]) for r in records) + 1))
+    ax.legend(frameon=False, ncol=2)
+    fig.tight_layout()
+    fig.savefig(output_path, bbox_inches="tight")
+    plt.close(fig)
 
 
-def plot_learning_curves(records, output_path):
-    plt.figure(figsize=(8, 5))
-    for model in sorted({record["model"] for record in records}):
-        model_records = [record for record in records if record["model"] == model]
-        model_records.sort(key=lambda item: item["train_size"])
-        sizes = [record["train_size"] for record in model_records]
-        values = [record["best_valid_nrmse"] for record in model_records]
-        plt.plot(sizes, values, marker="o", label=model)
-    plt.xlabel("Training Set Size")
-    plt.ylabel("Best Validation NRMSE")
-    plt.title("Learning Curves")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+def plot_loss_curves(records, loss_key, title, output_path):
+    plot_records = [record for record in records if record["loss_history"] is not None]
+    if not plot_records:
+        return
+
+    plt.style.use("seaborn-v0_8-whitegrid")
+    fig, ax = plt.subplots(figsize=(7.5, 5), dpi=180)
+    for record in sorted(plot_records, key=lambda item: item["model"]):
+        ax.plot(
+            record["loss_history"]["epochs"],
+            record["loss_history"][loss_key],
+            marker="o",
+            linewidth=2,
+            markersize=4,
+            label=record["model"].upper(),
+            color=record["color"],
+        )
+    ax.set_title(title)
+    ax.set_xlabel("Epoch")
+    ax.set_ylabel("Loss")
+    ax.set_xticks(range(1, max(max(record["loss_history"]["epochs"]) for record in plot_records) + 1))
+    ax.legend(frameon=False, ncol=2)
+    fig.tight_layout()
+    fig.savefig(output_path, bbox_inches="tight")
+    plt.close(fig)
 
 
 def plot_efficiency(records, x_key, x_label, output_path):
@@ -146,17 +215,32 @@ def main():
                 "valid_size": record["valid_size"],
                 "num_parameters": record["num_parameters"],
                 "resolved_hidden_dim": record["resolved_hidden_dim"],
+                "best_epoch": record["best_epoch"],
                 "best_valid_nrmse": record["best_valid_nrmse"],
                 "best_valid_rmse": record["best_valid_rmse"],
                 "final_elapsed_seconds": record["final_elapsed_seconds"],
                 "peak_gpu_memory_mb": record["peak_gpu_memory_mb"],
+                "has_loss_log": record["loss_history"] is not None,
             }
         )
 
     pd.DataFrame(summary_rows).to_csv(output_dir / "training_dynamics_summary.csv", index=False)
 
-    plot_convergence(full_size_records, output_dir / "convergence_nrmse.png")
-    plot_learning_curves(learning_curve_records, output_dir / "learning_curves_nrmse.png")
+    plot_metric_curves(full_size_records, "valid_nrmse", "Validation NRMSE by Epoch", "NRMSE", output_dir / "validation_curves.png")
+    plot_metric_curves(full_size_records, "valid_nrmse", "Validation NRMSE by Epoch", "NRMSE", output_dir / "validation_nrmse.png")
+    plot_metric_curves(full_size_records, "valid_rmse", "Validation RMSE by Epoch", "RMSE", output_dir / "validation_rmse.png")
+    plot_metric_curves(full_size_records, "peak_gpu_memory_mb", "Peak GPU Memory by Epoch", "Peak GPU Memory (MB)", output_dir / "peak_gpu_memory_by_epoch.png")
+
+    for record in full_size_records:
+        elapsed = [snapshot["elapsed_seconds"] for snapshot in record["history"]]
+        epoch_time = [elapsed[0]] + [elapsed[i] - elapsed[i - 1] for i in range(1, len(elapsed))]
+        for index, snapshot in enumerate(record["history"]):
+            snapshot["epoch_time_seconds"] = epoch_time[index]
+    plot_metric_curves(full_size_records, "epoch_time_seconds", "Epoch Time by Epoch", "Epoch Time (s)", output_dir / "epoch_time_by_epoch.png")
+
+    plot_loss_curves(full_size_records, "train_loss", "Training Loss by Epoch", output_dir / "training_loss_curves.png")
+    plot_loss_curves(full_size_records, "valid_loss", "Validation Loss by Epoch", output_dir / "validation_loss_curves.png")
+
     plot_efficiency(full_size_records, "final_elapsed_seconds", "Elapsed Seconds", output_dir / "efficiency_time_vs_nrmse.png")
     plot_efficiency(full_size_records, "peak_gpu_memory_mb", "Peak GPU Memory (MB)", output_dir / "efficiency_memory_vs_nrmse.png")
     plot_efficiency(full_size_records, "num_parameters", "Parameter Count", output_dir / "efficiency_params_vs_nrmse.png")

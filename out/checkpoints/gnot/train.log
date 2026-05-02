@@ -1,0 +1,21 @@
+device=cuda model=gnot hidden_dim=24 num_parameters=140867 train_samples=10000 valid_samples=1000
+epoch=1 train_loss=0.403260 train_rmse=0.050187 train_nrmse=0.101842 valid_loss=0.473125 valid_rmse=0.047896 valid_nrmse=0.086184
+saved=out/oc4_fair/gnot/gnot_best.pt
+epoch=2 train_loss=0.352777 train_rmse=0.041938 train_nrmse=0.079993 valid_loss=0.451237 valid_rmse=0.045982 valid_nrmse=0.076504
+saved=out/oc4_fair/gnot/gnot_best.pt
+epoch=3 train_loss=0.335707 train_rmse=0.038711 train_nrmse=0.069008 valid_loss=0.458675 valid_rmse=0.044847 valid_nrmse=0.072275
+epoch=4 train_loss=0.331813 train_rmse=0.037936 train_nrmse=0.066495 valid_loss=0.441278 valid_rmse=0.043862 valid_nrmse=0.070323
+saved=out/oc4_fair/gnot/gnot_best.pt
+epoch=5 train_loss=0.326961 train_rmse=0.036932 train_nrmse=0.063867 valid_loss=0.435948 valid_rmse=0.042873 valid_nrmse=0.070665
+saved=out/oc4_fair/gnot/gnot_best.pt
+epoch=6 train_loss=0.324366 train_rmse=0.036349 train_nrmse=0.062765 valid_loss=0.434425 valid_rmse=0.041889 valid_nrmse=0.065933
+saved=out/oc4_fair/gnot/gnot_best.pt
+epoch=7 train_loss=0.319987 train_rmse=0.035853 train_nrmse=0.061154 valid_loss=0.423096 valid_rmse=0.042628 valid_nrmse=0.068567
+saved=out/oc4_fair/gnot/gnot_best.pt
+epoch=8 train_loss=0.293509 train_rmse=0.035303 train_nrmse=0.060133 valid_loss=0.404068 valid_rmse=0.041591 valid_nrmse=0.066200
+saved=out/oc4_fair/gnot/gnot_best.pt
+epoch=9 train_loss=0.265444 train_rmse=0.033934 train_nrmse=0.057238 valid_loss=0.363040 valid_rmse=0.039365 valid_nrmse=0.061825
+saved=out/oc4_fair/gnot/gnot_best.pt
+epoch=10 train_loss=0.255387 train_rmse=0.033082 train_nrmse=0.055458 valid_loss=0.355921 valid_rmse=0.038479 valid_nrmse=0.059688
+saved=out/oc4_fair/gnot/gnot_best.pt
+best_valid_metrics {"loss": 0.3559210970239019, "mse": 0.003743148779449655, "rmse": 0.038478949839423876, "nrmse": 0.059688043229747564}

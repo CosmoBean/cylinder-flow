@@ -71,6 +71,7 @@ Each checkpoint folder contains:
 - `*_best.pt`: saved model checkpoint
 - `*_results.json`: best saved train/validation metrics
 - `history.json`: per-epoch training history used for plots
+- `train.log`: per-epoch console log used to reconstruct loss curves
 
 The main reported summary files are:
 
@@ -96,6 +97,16 @@ flowpde/bin/python scripts/analyze_training_dynamics.py \
   --output-dir out/reproduced_training_dynamics \
   --models flare transolver gnn fno gnot lno
 ```
+
+That command reproduces the final report plot set in the chosen output directory, including:
+
+- `validation_curves.png`
+- `validation_nrmse.png`
+- `validation_rmse.png`
+- `training_loss_curves.png`
+- `validation_loss_curves.png`
+- `peak_gpu_memory_by_epoch.png`
+- `epoch_time_by_epoch.png`
 
 To inspect the saved plots already included in the repo:
 

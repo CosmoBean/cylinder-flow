@@ -1,0 +1,22 @@
+device=cuda model=flare hidden_dim=48 num_parameters=133203 train_samples=10000 valid_samples=1000
+epoch=1 train_loss=0.280560 train_rmse=0.044337 train_nrmse=0.086141 valid_loss=0.245695 valid_rmse=0.043911 valid_nrmse=0.076355
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=2 train_loss=0.113493 train_rmse=0.030395 train_nrmse=0.056986 valid_loss=0.085599 valid_rmse=0.027698 valid_nrmse=0.047262
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=3 train_loss=0.047590 train_rmse=0.022685 train_nrmse=0.043325 valid_loss=0.055082 valid_rmse=0.023557 valid_nrmse=0.040119
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=4 train_loss=0.026720 train_rmse=0.018635 train_nrmse=0.035824 valid_loss=0.034620 valid_rmse=0.021693 valid_nrmse=0.041159
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=5 train_loss=0.017428 train_rmse=0.016019 train_nrmse=0.030860 valid_loss=0.018907 valid_rmse=0.017361 valid_nrmse=0.029666
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=6 train_loss=0.012141 train_rmse=0.013768 train_nrmse=0.026457 valid_loss=0.013407 valid_rmse=0.015136 valid_nrmse=0.027902
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=7 train_loss=0.008690 train_rmse=0.011808 train_nrmse=0.022611 valid_loss=0.009712 valid_rmse=0.012341 valid_nrmse=0.021495
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=8 train_loss=0.006402 train_rmse=0.010235 train_nrmse=0.019602 valid_loss=0.007967 valid_rmse=0.010598 valid_nrmse=0.019222
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=9 train_loss=0.005000 train_rmse=0.008955 train_nrmse=0.016933 valid_loss=0.005703 valid_rmse=0.009597 valid_nrmse=0.017092
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+epoch=10 train_loss=0.004341 train_rmse=0.008315 train_nrmse=0.015636 valid_loss=0.005094 valid_rmse=0.009052 valid_nrmse=0.016041
+saved=out/oc4_fair/flare_l3_s32_lr5e4/flare_best.pt
+best_valid_metrics {"loss": 0.005094466058521902, "mse": 0.00016609301114789332, "rmse": 0.009051663442805875, "nrmse": 0.016041189335053788}

@@ -1,0 +1,20 @@
+device=cuda model=transolver hidden_dim=64 num_parameters=136467 train_samples=10000 valid_samples=1000
+epoch=1 train_loss=0.264971 train_rmse=0.042456 train_nrmse=0.082491 valid_loss=0.206939 valid_rmse=0.038800 valid_nrmse=0.072798
+saved=out/oc3_fair_transolver/transolver_best.pt
+epoch=2 train_loss=0.081535 train_rmse=0.027151 train_nrmse=0.052353 valid_loss=0.048998 valid_rmse=0.023971 valid_nrmse=0.043063
+saved=out/oc3_fair_transolver/transolver_best.pt
+epoch=3 train_loss=0.037583 train_rmse=0.021284 train_nrmse=0.041827 valid_loss=0.032139 valid_rmse=0.021271 valid_nrmse=0.038454
+saved=out/oc3_fair_transolver/transolver_best.pt
+epoch=4 train_loss=0.025624 train_rmse=0.018461 train_nrmse=0.035813 valid_loss=0.038398 valid_rmse=0.022027 valid_nrmse=0.038897
+epoch=5 train_loss=0.018692 train_rmse=0.016397 train_nrmse=0.031601 valid_loss=0.021475 valid_rmse=0.016990 valid_nrmse=0.029867
+saved=out/oc3_fair_transolver/transolver_best.pt
+epoch=6 train_loss=0.014126 train_rmse=0.014844 train_nrmse=0.028418 valid_loss=0.015698 valid_rmse=0.015946 valid_nrmse=0.029726
+saved=out/oc3_fair_transolver/transolver_best.pt
+epoch=7 train_loss=0.010876 train_rmse=0.013488 train_nrmse=0.025699 valid_loss=0.017033 valid_rmse=0.015046 valid_nrmse=0.027145
+epoch=8 train_loss=0.008631 train_rmse=0.012268 train_nrmse=0.023034 valid_loss=0.009361 valid_rmse=0.013014 valid_nrmse=0.023455
+saved=out/oc3_fair_transolver/transolver_best.pt
+epoch=9 train_loss=0.007152 train_rmse=0.011401 train_nrmse=0.021331 valid_loss=0.008109 valid_rmse=0.012319 valid_nrmse=0.021461
+saved=out/oc3_fair_transolver/transolver_best.pt
+epoch=10 train_loss=0.006230 train_rmse=0.010772 train_nrmse=0.020153 valid_loss=0.007721 valid_rmse=0.012215 valid_nrmse=0.021594
+saved=out/oc3_fair_transolver/transolver_best.pt
+best_valid_metrics {"loss": 0.007720964026677393, "mse": 0.00031798804985453446, "rmse": 0.012214564366731793, "nrmse": 0.02159358866303228}

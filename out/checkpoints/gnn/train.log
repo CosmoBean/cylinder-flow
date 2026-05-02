@@ -1,0 +1,19 @@
+device=cuda model=gnn hidden_dim=72 num_parameters=132771 train_samples=10000 valid_samples=1000
+epoch=1 train_loss=0.211984 train_rmse=0.045249 train_nrmse=0.085478 valid_loss=0.120438 valid_rmse=0.036031 valid_nrmse=0.068338
+saved=out/oc3_fair_gnn/gnn_best.pt
+epoch=2 train_loss=0.061787 train_rmse=0.025895 train_nrmse=0.046566 valid_loss=0.037491 valid_rmse=0.021926 valid_nrmse=0.036660
+saved=out/oc3_fair_gnn/gnn_best.pt
+epoch=3 train_loss=0.040244 train_rmse=0.021947 train_nrmse=0.039148 valid_loss=0.039067 valid_rmse=0.023609 valid_nrmse=0.039620
+epoch=4 train_loss=0.029569 train_rmse=0.019656 train_nrmse=0.035369 valid_loss=0.038935 valid_rmse=0.023297 valid_nrmse=0.038313
+epoch=5 train_loss=0.023565 train_rmse=0.018085 train_nrmse=0.032293 valid_loss=0.023065 valid_rmse=0.018636 valid_nrmse=0.031633
+saved=out/oc3_fair_gnn/gnn_best.pt
+epoch=6 train_loss=0.017366 train_rmse=0.016257 train_nrmse=0.028764 valid_loss=0.034997 valid_rmse=0.019409 valid_nrmse=0.032264
+epoch=7 train_loss=0.014048 train_rmse=0.015152 train_nrmse=0.026739 valid_loss=0.018076 valid_rmse=0.018462 valid_nrmse=0.033290
+saved=out/oc3_fair_gnn/gnn_best.pt
+epoch=8 train_loss=0.011641 train_rmse=0.014114 train_nrmse=0.024670 valid_loss=0.012084 valid_rmse=0.014862 valid_nrmse=0.024504
+saved=out/oc3_fair_gnn/gnn_best.pt
+epoch=9 train_loss=0.009917 train_rmse=0.013419 train_nrmse=0.023388 valid_loss=0.010284 valid_rmse=0.014193 valid_nrmse=0.023384
+saved=out/oc3_fair_gnn/gnn_best.pt
+epoch=10 train_loss=0.008927 train_rmse=0.012934 train_nrmse=0.022485 valid_loss=0.009856 valid_rmse=0.013991 valid_nrmse=0.023105
+saved=out/oc3_fair_gnn/gnn_best.pt
+best_valid_metrics {"loss": 0.009856432175204646, "mse": 0.00044119866359357474, "rmse": 0.013991360533167609, "nrmse": 0.023104523406364024}

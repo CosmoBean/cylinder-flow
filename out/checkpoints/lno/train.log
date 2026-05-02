@@ -1,0 +1,19 @@
+device=cuda model=lno hidden_dim=56 num_parameters=144739 train_samples=10000 valid_samples=1000
+epoch=1 train_loss=0.397261 train_rmse=0.047184 train_nrmse=0.089262 valid_loss=0.498569 valid_rmse=0.048375 valid_nrmse=0.079591
+saved=out/lno_stability_c/lno_best.pt
+epoch=2 train_loss=0.380115 train_rmse=0.042049 train_nrmse=0.075962 valid_loss=0.493142 valid_rmse=0.046838 valid_nrmse=0.076484
+saved=out/lno_stability_c/lno_best.pt
+epoch=3 train_loss=0.376806 train_rmse=0.041102 train_nrmse=0.072755 valid_loss=0.492964 valid_rmse=0.047068 valid_nrmse=0.076423
+saved=out/lno_stability_c/lno_best.pt
+epoch=4 train_loss=0.360551 train_rmse=0.039827 train_nrmse=0.069860 valid_loss=0.466694 valid_rmse=0.045050 valid_nrmse=0.072681
+saved=out/lno_stability_c/lno_best.pt
+epoch=5 train_loss=0.339905 train_rmse=0.038335 train_nrmse=0.066364 valid_loss=0.426478 valid_rmse=0.042853 valid_nrmse=0.067929
+saved=out/lno_stability_c/lno_best.pt
+epoch=6 train_loss=0.316060 train_rmse=0.037139 train_nrmse=0.063457 valid_loss=0.403328 valid_rmse=0.042526 valid_nrmse=0.067059
+saved=out/lno_stability_c/lno_best.pt
+epoch=7 train_loss=0.291319 train_rmse=0.035894 train_nrmse=0.060790 valid_loss=0.399066 valid_rmse=0.041257 valid_nrmse=0.064455
+saved=out/lno_stability_c/lno_best.pt
+epoch=8 train_loss=0.276199 train_rmse=0.034573 train_nrmse=0.057844 valid_loss=0.373949 valid_rmse=0.039748 valid_nrmse=0.061827
+saved=out/lno_stability_c/lno_best.pt
+epoch=9 train_loss=0.266147 train_rmse=0.033543 train_nrmse=0.055567 valid_loss=0.365839 valid_rmse=0.038960 valid_nrmse=0.060094
+saved=out/lno_stability_c/lno_best.pt

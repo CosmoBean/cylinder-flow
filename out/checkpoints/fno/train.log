@@ -1,0 +1,20 @@
+device=cuda model=fno hidden_dim=16 num_parameters=132772 train_samples=10000 valid_samples=1000
+epoch=1 train_loss=0.110099 train_rmse=0.028836 train_nrmse=0.058845 valid_loss=0.098535 valid_rmse=0.023976 valid_nrmse=0.044183
+saved=out/oc4_fair/fno/fno_best.pt
+epoch=2 train_loss=0.077675 train_rmse=0.021725 train_nrmse=0.043253 valid_loss=0.079473 valid_rmse=0.020776 valid_nrmse=0.038226
+saved=out/oc4_fair/fno/fno_best.pt
+epoch=3 train_loss=0.072878 train_rmse=0.020033 train_nrmse=0.039733 valid_loss=0.082462 valid_rmse=0.022624 valid_nrmse=0.040407
+epoch=4 train_loss=0.069671 train_rmse=0.018784 train_nrmse=0.037323 valid_loss=0.074899 valid_rmse=0.020082 valid_nrmse=0.037072
+saved=out/oc4_fair/fno/fno_best.pt
+epoch=5 train_loss=0.067646 train_rmse=0.017917 train_nrmse=0.035527 valid_loss=0.072822 valid_rmse=0.018931 valid_nrmse=0.035565
+saved=out/oc4_fair/fno/fno_best.pt
+epoch=6 train_loss=0.065789 train_rmse=0.017078 train_nrmse=0.033917 valid_loss=0.071537 valid_rmse=0.018225 valid_nrmse=0.033816
+saved=out/oc4_fair/fno/fno_best.pt
+epoch=7 train_loss=0.064354 train_rmse=0.016452 train_nrmse=0.032584 valid_loss=0.072355 valid_rmse=0.017993 valid_nrmse=0.033152
+epoch=8 train_loss=0.063286 train_rmse=0.015972 train_nrmse=0.031597 valid_loss=0.070159 valid_rmse=0.017768 valid_nrmse=0.033149
+saved=out/oc4_fair/fno/fno_best.pt
+epoch=9 train_loss=0.062550 train_rmse=0.015637 train_nrmse=0.030909 valid_loss=0.069235 valid_rmse=0.017476 valid_nrmse=0.032337
+saved=out/oc4_fair/fno/fno_best.pt
+epoch=10 train_loss=0.062094 train_rmse=0.015444 train_nrmse=0.030535 valid_loss=0.068865 valid_rmse=0.017029 valid_nrmse=0.031537
+saved=out/oc4_fair/fno/fno_best.pt
+best_valid_metrics {"loss": 0.06886548611108446, "mse": 0.0011117624590806373, "rmse": 0.017028742303606122, "nrmse": 0.031537280682008714}
