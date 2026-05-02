@@ -20,7 +20,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_gnn
+  --save-dir out/launch_oc3_gnn
 
 flowpde/bin/python train.py \
   --model transolver \
@@ -38,7 +38,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_transolver
+  --save-dir out/launch_oc3_transolver
 
 flowpde/bin/python train.py \
   --model flare \
@@ -56,7 +56,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_flare
+  --save-dir out/launch_oc3_flare
 
 flowpde/bin/python train.py \
   --model gnot \
@@ -73,7 +73,7 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_gnot
+  --save-dir out/launch_oc3_gnot
 
 flowpde/bin/python train.py \
   --model lno \
@@ -85,13 +85,13 @@ flowpde/bin/python train.py \
   --num-layers 4 \
   --num-heads 4 \
   --num-slices 32 \
-  --learning-rate 1e-3 \
-  --min-learning-rate 1e-4 \
-  --weight-decay 1e-4 \
-  --grad-clip 1.0 \
+  --learning-rate 5e-4 \
+  --min-learning-rate 5e-5 \
+  --weight-decay 1e-5 \
+  --grad-clip 0.5 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_lno
+  --save-dir out/lno_stability_c
 
 flowpde/bin/python train.py \
   --model fno \
@@ -109,4 +109,4 @@ flowpde/bin/python train.py \
   --grad-clip 1.0 \
   --device cuda \
   --window-stride 10 \
-  --save-dir out/fair_fno
+  --save-dir out/launch_oc1_fno
